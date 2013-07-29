@@ -1,7 +1,7 @@
 pencil-extensions
 =================
 
-Some extensions for the great tool named Pencil (http://pencil.evolus.vn/)
+Some extensions for a great tool named Pencil (http://pencil.evolus.vn/)
 
 
 ## Lab Components
