@@ -1,0 +1,108 @@
+<?xml version="1.0"?>
+<Shapes xmlns="http://www.evolus.vn/Namespace/Pencil"
+        xmlns:p="http://www.evolus.vn/Namespace/Pencil"
+        xmlns:svg="http://www.w3.org/2000/svg"
+        xmlns:xlink="http://www.w3.org/1999/xlink"
+        id="lab1"
+        displayName="Lab Components"
+        description="More description about this collection"
+        author="Konstantin Denerz"
+        url="test">
+        <Shape id="lab-tile" displayName="Tile"
+             icon="Icons/plain-text.png">
+        <Properties>
+        	<PropertyGroup>
+      			<Property name="box" type="Dimension">150,150</Property>
+      			<Property name="boxContent" type="Dimension">150,40</Property>
+      			<Property name="opened" type="Bool" displayName="Opened">false</Property>
+    	  	</PropertyGroup>
+    	  	<PropertyGroup name="Common">
+				<Property name="contentDefaultHeight" displayName="Content Default Height" 
+	                      type="PlainText">40</Property>
+	            <Property name="image" displayName="Image"
+          type="ImageData"><![CDATA[w,h,url]]></Property>
+    	  	</PropertyGroup>
+          	<PropertyGroup name="Text">
+          		<Property name="label" displayName="Label" 
+	                      type="PlainText"><![CDATA[Tile Title]]></Property>
+	            <Property name="content" displayName="Content" 
+	                      type="RichText"><![CDATA[Tile Description]]></Property>
+	            <Property name="textColor" displayName="Color"
+	                      type="Color">#000000ff</Property>
+	            <Property name="textFont"
+	                      displayName="Font"
+	                      type="Font">Arial|normal|normal|13px</Property>
+          	</PropertyGroup>
+          	<PropertyGroup name="Background">
+		      <Property name="fillColor" displayName="Background Color"
+		                type="Color">#e7e7e7ff</Property>
+		        <Property name="fillColorContent" displayName="Background Color of Content"
+		                type="Color">#2b2b2ba0</Property>
+		    </PropertyGroup>
+        </Properties>
+        <Behaviors>
+          <For ref="text">
+            <TextContent>$label</TextContent>
+            	<Fill>$textColor</Fill>
+            	<Font>$textFont</Font>
+            	<BoxFit> 
+              <Arg>new Bound(4, ($opened == 'true' ? 10 : $box.h - $contentDefaultHeight + 4), $box.w, 12)</Arg>
+              <Arg>new Alignment(0, 1)</Arg>
+            </BoxFit>
+          	</For>
+          	<For ref="tileContainer">
+            	<Box>$box</Box>
+		      	<Fill>$fillColor</Fill>
+          	</For>
+          	<For ref="contentContainer">
+            	<Box>$boxContent</Box>
+		      	<Fill>$fillColorContent</Fill>
+		      	<Attr>
+			        <Arg>"width"</Arg>
+			        <Arg>$box.w</Arg>
+			    </Attr>
+			    <Attr>
+			        <Arg>"height"</Arg>
+			        <Arg>($opened == 'true' ? $box.h : $contentDefaultHeight )</Arg>
+			    </Attr>
+			    <Attr>
+			        <Arg>"y"</Arg>
+			        <Arg>($opened == 'true' ? 0 : $box.h - $contentDefaultHeight)</Arg>
+			    </Attr>
+          	</For>
+        </Behaviors>
+        <Actions>
+            <Action id="generateLoremShortRichTextBox" displayName="Generate Short Random Texts">
+                <Impl>
+                        <![CDATA[
+                            this.setProperty("label", RichText.fromLoremIpsum(10));
+                            this.setProperty("fixedWidth", new Bool(true));
+                        ]]>
+                </Impl>
+            </Action>
+            <Action id="generateLoremLongRichTextBox" displayName="Generate Long Random Texts">
+                <Impl>
+                        <![CDATA[
+                            this.setProperty("label", RichText.fromLoremIpsum(45));
+                            this.setProperty("fixedWidth", new Bool(true));
+                        ]]>
+                </Impl>
+            </Action>
+            <Action id="generateLoremExtraLongRichTextBox" displayName="Generate Longer Random Texts">
+                <Impl>
+                        <![CDATA[
+                            this.setProperty("label", RichText.fromLoremIpsum(150));
+                            this.setProperty("fixedWidth", new Bool(true));
+                        ]]>
+                </Impl>
+            </Action>
+        </Actions>
+        <p:Content xmlns:p="http://www.evolus.vn/Namespace/Pencil"
+                   xmlns="http://www.w3.org/2000/svg">
+          
+            <rect id="tileContainer" />
+            <rect id="contentContainer" />
+            <text id="text"/>
+        </p:Content>
+      </Shape>
+</Shapes>
